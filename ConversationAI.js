@@ -14,69 +14,69 @@ const cleanWords = (word) => {
       str = str + c
     }
   }
-  console.log('string:', str)
   return str
 }
 
-const hashWords = () => {
+const hashWords = (textData) => {
   console.time('check time:')
   const wordDict = {}
   const wordsData = []
 
-  const data = `*****These eBooks Were Prepared By Thousands\nwordss of Volunteers!***** Doyle)\n\nCopyright redistributing\nthis permission.\n\nPlease 
-    'The',                 'Project',               'Gutenberg',
-  'EBook',               'of',                    'The',
-  'Adventures',          'of',                    'Sherlock',
-  'Holmes\nby',          'Sir',                   'Arthur',
-  'Conan',               'Doyle\n(#15',           'in',
-  'our',                 'series',                'by',
-  'Sir',                 'Arthur',                'Conan',
-  'Doyle)\n\nCopyright', 'laws',                  'are',
-  'changing',            'all',                   'over',
-  'the',                 'world.',                'Be',
-  'sure',                'to',                    'check',
-  'the\ncopyright',      'laws',                  'for',
-  'your',                'country',               'before',
-  'downloading',         'or',                    'redistributing\nthis',
-  'or',                  'any',                   'other',
-  'Project',             'Gutenberg',             'eBook.\n\nThis',
-  'header',              'should',                'be',
-  'the',                 'first',                 'thing',
-  'seen',                'when',                  'viewing',
-  'this',                'Project\nGutenberg',    'file.',
-  'Please',              'do',                    'not',
-  'remove',              'it.',                   'Do',
-  'not',                 'change',                'or',
-  'edit',                'the\nheader',           'without',
-  'written',             'permission.\n\nPlease', 'read',
-  'the',                 '"legal',                'small',
-  'print,"',             'and',                   'other',
+  // const data = `*****These eBooks Were Prepared By Thousands\nwordss of Volunteers!***** Doyle)\n\nCopyright redistributing\nthis permission.\n\nPlease
+  //   'The',                 'Project',               'Gutenberg',
+  // 'EBook',               'of',                    'The',
+  // 'Adventures',          'of',                    'Sherlock',
+  // 'Holmes\nby',          'Sir',                   'Arthur',
+  // 'Conan',               'Doyle\n(#15',           'in',
+  // 'our',                 'series',                'by',
+  // 'Sir',                 'Arthur',                'Conan',
+  // 'Doyle)\n\nCopyright', 'laws',                  'are',
+  // 'changing',            'all',                   'over',
+  // 'the',                 'world.',                'Be',
+  // 'sure',                'to',                    'check',
+  // 'the\ncopyright',      'laws',                  'for',
+  // 'your',                'country',               'before',
+  // 'downloading',         'or',                    'redistributing\nthis',
+  // 'or',                  'any',                   'other',
+  // 'Project',             'Gutenberg',             'eBook.\n\nThis',
+  // 'header',              'should',                'be',
+  // 'the',                 'first',                 'thing',
+  // 'seen',                'when',                  'viewing',
+  // 'this',                'Project\nGutenberg',    'file.',
+  // 'Please',              'do',                    'not',
+  // 'remove',              'it.',                   'Do',
+  // 'not',                 'change',                'or',
+  // 'edit',                'the\nheader',           'without',
+  // 'written',             'permission.\n\nPlease', 'read',
+  // 'the',                 '"legal',                'small',
+  // 'print,"',             'and',                   'other',
 
-    `
+  //   `
+  const words = textData
+    .split(' ')
+    .map((word) => {
+      let temp = word.split('\n')
+      return temp.filter((i) => i !== '')
+    })
+    .filter((word) => word != '')
 
-  const tester = /[a-zA-Z]/
-  const words = data.split(' ').map((word) => {
-    let temp = word.split('\n')
-    return temp.filter((i) => i !== '')
-  })
-
+  console.log('words-----', words)
   for (word of words) {
     wordsData.push(...word)
   }
 
-  const wordsList = wordsData
-    .map((word) => {
-      const pureWordREG = /^[a-zA-Z]+$/g
-      let pureWord
-      if (!pureWordREG.test(word)) {
-        pureWord = cleanWords(word)
-      } else {
-        pureWord = word
-      }
-      return pureWord.toLowerCase()
-    })
-    .filter((word) => word != '')
+  const wordsList = wordsData.map((word) => {
+    const pureWordREG = /^[a-zA-Z]+$/g
+    let pureWord
+    if (!pureWordREG.test(word)) {
+      pureWord = cleanWords(word)
+    } else {
+      pureWord = word
+    }
+    return pureWord.toLowerCase()
+  })
 
+  // .filter((word) => word != '')
   // .map((word) => {
   //   let temp = word.split('\n')
   //   return [...temp]
@@ -99,8 +99,8 @@ const hashWords = () => {
 }
 
 const solution = async () => {
-  //const url = 'http://norvig.com/big.txt'
-  //const textData = await fetchFileData(url)
+  const url = 'http://norvig.com/big.txt'
+  const textData = await fetchFileData(url)
   hashWords()
 }
 
